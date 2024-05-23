@@ -1,45 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Super Place</title>
-  </head>
-  <body>
-    <form
-      action="/superplaces/<%= superPlace._id %>?_method=PUT"
-      method="POST"
-      style="
-        min-height: 100vh;
-        display: grid;
-        place-content: center;
-        max-width: 1024px;
-        margin: 0 auto;
-        background-color: rgb(197, 170, 180);
-        gap: 1rem;
-      "
-    >
-      <h1>Create a Super Place</h1>
-      <div style="display: grid; place-content: center">
-        <label for="title">Title</label>
-        <input
-          value="<%= superPlace.title %>"
-          type="text"
-          id="title"
-          name="superplace[title]"
-        />
-      </div>
-      <div style="display: grid; place-content: center">
-        <label for="location">Location</label>
-        <input
-          value="<%= superPlace.location %>"
-          type="text"
-          id="location"
-          name="superplace[location]"
-        />
-      </div>
-      <button type="submit">Update</button>
-      <a href="/superplaces/<%= superPlace._id %>">View</a>
-    </form>
-  </body>
-</html>
+<% layout('/layout/boilerplate') %>
+<form
+  action="/superplaces/<%= superPlace._id %>?_method=PUT"
+  method="POST"
+  style="
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    max-width: 1024px;
+    margin: 0 auto;
+    background-color: rgb(197, 170, 180);
+    gap: 1rem;
+  "
+>
+  <h1>Create a Super Place</h1>
+  <div style="display: grid; place-content: center">
+    <label for="title">Title</label>
+    <input
+      value="<%= superPlace.title %>"
+      type="text"
+      id="title"
+      name="superplace[title]"
+    />
+  </div>
+  <div style="display: grid; place-content: center">
+    <label for="location">Location</label>
+    <input
+      value="<%= superPlace.location %>"
+      type="text"
+      id="location"
+      name="superplace[location]"
+    />
+  </div>
+  <button type="submit">Update</button>
+  <a href="/superplaces/<%= superPlace._id %>">View</a>
+</form>

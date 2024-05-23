@@ -1,10 +1,11 @@
 import express from 'express'
-import path from 'path'
+import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import SuperPlace from './models/superplace.js'
 import mongoose from 'mongoose'
 import methodOverride from 'method-override'
 import morgan from 'morgan'
+import ejsMate from 'ejs-mate'
 
 mongoose.connect('mongodb://localhost:27017/super-place')
 
@@ -25,8 +26,10 @@ const __dirname = path.dirname(__filename)
 const app = express()
 
 app.use(morgan('dev'))
+app.use(express.static(path.join(__dirname, 'resources')))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
