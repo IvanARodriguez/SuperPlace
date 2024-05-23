@@ -27,6 +27,7 @@ const app = express()
 
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'resources')))
+app.use(express.static(path.join(__dirname, 'styles')))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.engine('ejs', ejsMate)

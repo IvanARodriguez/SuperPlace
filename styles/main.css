@@ -1,0 +1,22 @@
+#logo{
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
+}
+
+.logo-font{
+  font-size: 2rem;
+  display: flex;
+  height: inherit;
+  color: inherit;
+  position: relative;
+}
+
+
+.main-color{
+  margin: 0;
+  color: #12b886;
+}
