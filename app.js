@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import SuperPlace from './models/superplace.js'
 import mongoose from 'mongoose'
 import methodOverride from 'method-override'
+import morgan from 'morgan'
 
 mongoose.connect('mongodb://localhost:27017/super-place')
 
@@ -23,6 +24,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
+app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
