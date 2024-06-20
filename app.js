@@ -8,7 +8,7 @@ import morgan from 'morgan'
 import ejsMate from 'ejs-mate'
 import catchAsyncError from './util/catchAsyncError.js'
 import ExpressError from './util/ExpressError.js'
-
+import { superplaceSchema } from './schemas.js'
 mongoose.connect('mongodb://localhost:27017/super-place')
 
 const db = mongoose.connection
@@ -36,6 +36,17 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
+// Middleware
+function validateSuperplace(req, res, next) {
+  const { error } = superplaceSchema.validate(req.body)
+  if (error) {
+    const msg = error.details.map((err) => err.message).join(', ')
+    throw new ExpressError(msg, 400)
+  } else {
+    next()
+  }
+}
+
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -57,10 +68,11 @@ app.get(
 
 app.post(
   '/superplaces',
+  validateSuperplace,
   catchAsyncError(async (req, res, next) => {
-    const superPlace = new SuperPlace(req.body.superplace)
-    await superPlace.save()
-    res.redirect(`/superplaces/${superPlace._id}`)
+    const superplace = new SuperPlace(req.body.superplace)
+    await superplace.save()
+    res.redirect(`/superplaces/${superplace._id}`)
   })
 )
 
@@ -68,8 +80,8 @@ app.get(
   '/superplaces/:id',
   catchAsyncError(async (req, res) => {
     const id = req.params.id
-    const superPlace = await SuperPlace.findById(id)
-    res.render('superplaces/show', { superPlace })
+    const superplace = await SuperPlace.findById(id)
+    res.render('superplaces/show', { superplace })
   })
 )
 
@@ -77,13 +89,14 @@ app.get(
   '/superplaces/:id/edit',
   catchAsyncError(async (req, res) => {
     const id = req.params.id
-    const superPlace = await SuperPlace.findById(id)
-    res.render('superplaces/edit', { superPlace })
+    const superplace = await SuperPlace.findById(id)
+    res.render('superplaces/edit', { superplace })
   })
 )
 
 app.put(
   '/superplaces/:id',
+  validateSuperplace,
   catchAsyncError(async (req, res, next) => {
     const { id } = req.params
     const sp = await SuperPlace.findByIdAndUpdate(id, {
