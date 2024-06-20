@@ -1,0 +1,8 @@
+<% layout('/layout/boilerplate') %>
+<div class="row gap-5">
+    <img src="/error.svg" alt="Bug image" class="bug-image">
+    <div class="alert alert-success  text-wrap" role="alert">
+      <h4 class="alert-heading"><%= err.message %></h4>
+      <p><%= err.stack %></p>
+    </div>
+</div>

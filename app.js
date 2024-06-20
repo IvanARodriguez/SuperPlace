@@ -6,6 +6,8 @@ import mongoose from 'mongoose'
 import methodOverride from 'method-override'
 import morgan from 'morgan'
 import ejsMate from 'ejs-mate'
+import catchAsyncError from './util/catchAsyncError.js'
+import ExpressError from './util/ExpressError.js'
 
 mongoose.connect('mongodb://localhost:27017/super-place')
 
@@ -38,43 +40,76 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-app.get('/superplaces', async (req, res) => {
-  const superplaces = await SuperPlace.find({})
-  res.render('superplaces/index', { superplaces })
+app.get(
+  '/superplaces',
+  catchAsyncError(async (req, res) => {
+    const superplaces = await SuperPlace.find({})
+    res.render('superplaces/index', { superplaces })
+  })
+)
+
+app.get(
+  '/superplaces/new',
+  catchAsyncError(async (req, res) => {
+    res.render('superplaces/new')
+  })
+)
+
+app.post(
+  '/superplaces',
+  catchAsyncError(async (req, res, next) => {
+    const superPlace = new SuperPlace(req.body.superplace)
+    await superPlace.save()
+    res.redirect(`/superplaces/${superPlace._id}`)
+  })
+)
+
+app.get(
+  '/superplaces/:id',
+  catchAsyncError(async (req, res) => {
+    const id = req.params.id
+    const superPlace = await SuperPlace.findById(id)
+    res.render('superplaces/show', { superPlace })
+  })
+)
+
+app.get(
+  '/superplaces/:id/edit',
+  catchAsyncError(async (req, res) => {
+    const id = req.params.id
+    const superPlace = await SuperPlace.findById(id)
+    res.render('superplaces/edit', { superPlace })
+  })
+)
+
+app.put(
+  '/superplaces/:id',
+  catchAsyncError(async (req, res, next) => {
+    const { id } = req.params
+    const sp = await SuperPlace.findByIdAndUpdate(id, {
+      ...req.body.superplace,
+    })
+    res.redirect(`/superplaces/${sp._id}`)
+  })
+)
+
+app.delete(
+  '/superplaces/:id',
+  catchAsyncError(async (req, res) => {
+    const { id } = req.params
+    await SuperPlace.findByIdAndDelete(id)
+    res.redirect('/superplaces')
+  })
+)
+
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page not found', 404))
 })
 
-app.get('/superplaces/new', async (req, res) => {
-  res.render('superplaces/new')
-})
-
-app.post('/superplaces', async (req, res) => {
-  const superPlace = new SuperPlace(req.body.superplace)
-  await superPlace.save()
-  res.redirect(`/superplaces/${superPlace._id}`)
-})
-
-app.get('/superplaces/:id', async (req, res) => {
-  const id = req.params.id
-  const superPlace = await SuperPlace.findById(id)
-  res.render('superplaces/show', { superPlace })
-})
-
-app.get('/superplaces/:id/edit', async (req, res) => {
-  const id = req.params.id
-  const superPlace = await SuperPlace.findById(id)
-  res.render('superplaces/edit', { superPlace })
-})
-
-app.put('/superplaces/:id', async (req, res) => {
-  const { id } = req.params
-  const sp = await SuperPlace.findByIdAndUpdate(id, { ...req.body.superplace })
-  res.redirect(`/superplaces/${sp._id}`)
-})
-
-app.delete('/superplaces/:id', async (req, res) => {
-  const { id } = req.params
-  await SuperPlace.findByIdAndDelete(id)
-  res.redirect('/superplaces')
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err
+  if (!err.message) err.message = 'Something went wrong'
+  res.status(statusCode).render('error', { err })
 })
 
 app.listen(3000, ()=>{

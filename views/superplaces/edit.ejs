@@ -1,36 +1,103 @@
 <% layout('/layout/boilerplate') %>
-<form
-  action="/superplaces/<%= superPlace._id %>?_method=PUT"
-  method="POST"
-  style="
-    min-height: 100vh;
-    display: grid;
-    place-content: center;
-    max-width: 1024px;
-    margin: 0 auto;
-    background-color: rgb(197, 170, 180);
-    gap: 1rem;
-  "
->
-  <h1>Create a Super Place</h1>
-  <div style="display: grid; place-content: center">
-    <label for="title">Title</label>
-    <input
-      value="<%= superPlace.title %>"
-      type="text"
-      id="title"
-      name="superplace[title]"
+<div class="my-5">
+  <h1 class="text-center">
+    Editing
+    <span class="text-primary">
+      <a href="/superplaces/<%= superPlace._id %>"> <%= superPlace.title %></a>
+    </span>
+  </h1>
+  <div class="row gap-2 mt-5">
+    <form
+      novalidate
+      action="/superplaces/<%= superPlace._id %>?_method=PUT"
+      method="POST"
+      class="row gap-2 col-md-6 validated-form"
+      style="max-width: 500px; margin: 0 auto"
+    >
+      <div class="form-group p-0">
+        <label for="title" class="form-label">Title</label>
+        <input
+          class="form-control"
+          value="<%= superPlace.title %>"
+          type="text"
+          id="title"
+          name="superplace[title]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          Please add a title.
+        </div>
+      </div>
+      <div class="form-group p-0">
+        <label class="form-label" for="location">Location</label>
+        <input
+        required
+          value="<%= superPlace.location %>"
+          type="text"
+          id="location"
+          name="superplace[location]"
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          Please add a location, example: Newark, NJ.
+        </div>
+      </div>
+      <div class="form-group p-0">
+        <label for="image-url" class="form-label">Image URL</label>
+        <input
+        required
+          class="form-control"
+          value="<%= superPlace.imageUri %>"
+          type="text"
+          id="image-url"
+          name="superplace[imageUri]"
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          Image URL is required
+        </div>
+      </div>
+      <div class="form-group p-0">
+        <label class="form-label" for="price">Price</label>
+        <input
+        required
+          value="<%= superPlace.price %>"
+          type="number"
+          id="price"
+          name="superplace[price]"
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          Price is required.
+        </div>
+      </div>
+      <div class="form-group p-0">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+        required
+          rows="5"
+          id="description"
+          name="superplace[description]"
+          class="form-control"
+        >
+          <%= superPlace.description %>
+          </textarea
+        >
+        <div class="valid-feedback">Looks good!</div>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          Must add a description.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-dark">Update</button>
+    </form>
+    <img
+      src="<%= superPlace.imageUri %>"
+      alt="<%= superPlace.title %> image"
+      class="col-md-6 rounded shadow img-fluid p-0"
+      style="object-fit: cover; height: 500px"
     />
   </div>
-  <div style="display: grid; place-content: center">
-    <label for="location">Location</label>
-    <input
-      value="<%= superPlace.location %>"
-      type="text"
-      id="location"
-      name="superplace[location]"
-    />
-  </div>
-  <button type="submit">Update</button>
-  <a href="/superplaces/<%= superPlace._id %>">View</a>
-</form>
+</div>

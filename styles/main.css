@@ -24,3 +24,8 @@
 .main-bg-color {
   background-color:#12b886 ;
 }
+
+.bug-image{
+  max-width: 500px;
+  margin: 0 auto;
+}

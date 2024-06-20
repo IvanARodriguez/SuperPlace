@@ -63,8 +63,61 @@
   </head>
   <body class="d-flex flex-column" style="min-height: 100vh;">
     <%- include('../partials/navbar') %>
-    <main class="container mt-5" style="flex: 1;"  ><%- body %></main>
+    <main class="container mt-5" style="flex: 1; min-height: 50rem;"  ><%- body %></main>
     <!-- Remove the container if you want to extend the Footer to full width. -->
     <%- include('../partials/footer') %>
+
+    <script>
+      ;(function () {
+        'use strict'
+        window.addEventListener(
+          'load',
+          function () {
+            // Fetch all the forms we want to apply custom validation styles
+            const inputs = document.getElementsByClassName('form-control')
+            const forms = document.getElementsByClassName('validated-form')
+    
+            // Update inputs validation state when user clicks away
+            function handleInputChange(input) {
+              input.addEventListener(
+                'blur',
+                function (event) {
+                  // reset
+                  input.classList.remove('is-invalid')
+                  input.classList.remove('is-valid')
+    
+                  if (input.checkValidity() === false) {
+                    input.classList.add('is-invalid')
+                  } else {
+                    input.classList.add('is-valid')
+                  }
+                },
+                false
+              )
+            }
+    
+            // Prevent form from submitting when there is a validation error
+            function handleSubmit(form) {
+              form.addEventListener(
+                'submit',
+                (event) => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                  }
+    
+                  form.classList.add('was-validated')
+                },
+                false
+              )
+            }
+    
+            Array.from(inputs, handleInputChange)
+            Array.from(forms, handleSubmit)
+          },
+          false
+        )
+      })()
+    </script>
   </body>
 </html>

@@ -4,9 +4,10 @@ const Schema = mongoose.Schema
 
 const SuperPlaceSchema = new Schema({
   title: String,
-  price: String,
+  price: Number,
   description: String,
   location: String,
+  imageUri: String,
 })
 
 export default mongoose.model('SuperPlace', SuperPlaceSchema)
