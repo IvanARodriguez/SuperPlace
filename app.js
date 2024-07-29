@@ -9,6 +9,7 @@ import ejsMate from 'ejs-mate'
 import catchAsyncError from './util/catchAsyncError.js'
 import ExpressError from './util/ExpressError.js'
 import { superplaceSchema } from './schemas.js'
+
 mongoose.connect('mongodb://localhost:27017/super-place')
 
 const db = mongoose.connection
