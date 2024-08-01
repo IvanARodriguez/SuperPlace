@@ -80,7 +80,7 @@ app.post(
 app.get(
   '/superplaces/:id',
   catchAsyncError(async (req, res) => {
-    const id = req.params.id
+    const { id } = req.params
     const superplace = await SuperPlace.findById(id)
     res.render('superplaces/show', { superplace })
   })

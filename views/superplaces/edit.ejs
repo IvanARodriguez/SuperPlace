@@ -3,13 +3,13 @@
   <h1 class="text-center">
     Editing
     <span class="text-primary">
-      <a href="/superplaces/<%= superPlace._id %>"> <%= superPlace.title %></a>
+      <a href="/superplaces/<%= superplace._id %>"> <%= superplace.title %></a>
     </span>
   </h1>
   <div class="row gap-2 mt-5">
     <form
       novalidate
-      action="/superplaces/<%= superPlace._id %>?_method=PUT"
+      action="/superplaces/<%= superplace._id %>?_method=PUT"
       method="POST"
       class="row gap-2 col-md-6 validated-form"
       style="max-width: 500px; margin: 0 auto"
@@ -18,7 +18,7 @@
         <label for="title" class="form-label">Title</label>
         <input
           class="form-control"
-          value="<%= superPlace.title %>"
+          value="<%= superplace.title %>"
           type="text"
           id="title"
           name="superplace[title]"
@@ -33,7 +33,7 @@
         <label class="form-label" for="location">Location</label>
         <input
         required
-          value="<%= superPlace.location %>"
+          value="<%= superplace.location %>"
           type="text"
           id="location"
           name="superplace[location]"
@@ -49,7 +49,7 @@
         <input
         required
           class="form-control"
-          value="<%= superPlace.imageUri %>"
+          value="<%= superplace.imageUri %>"
           type="text"
           id="image-url"
           name="superplace[imageUri]"
@@ -63,7 +63,7 @@
         <label class="form-label" for="price">Price</label>
         <input
         required
-          value="<%= superPlace.price %>"
+          value="<%= superplace.price %>"
           type="number"
           id="price"
           name="superplace[price]"
@@ -83,7 +83,7 @@
           name="superplace[description]"
           class="form-control"
         >
-          <%= superPlace.description %>
+          <%= superplace.description %>
           </textarea
         >
         <div class="valid-feedback">Looks good!</div>
@@ -94,8 +94,8 @@
       <button type="submit" class="btn btn-dark">Update</button>
     </form>
     <img
-      src="<%= superPlace.imageUri %>"
-      alt="<%= superPlace.title %> image"
+      src="<%= superplace.imageUri %>"
+      alt="<%= superplace.title %> image"
       class="col-md-6 rounded shadow img-fluid p-0"
       style="object-fit: cover; height: 500px"
     />

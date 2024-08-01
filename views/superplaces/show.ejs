@@ -3,34 +3,41 @@
   <div class="col-md-6 shadow p-0">
     <img
       class="rounded w-100 h-100"
-      src="<%= superPlace.imageUri %>"
-      alt="<%= superPlace.title %>"
+      src="<%= superplace.imageUri %>"
+      alt="<%= superplace.title %>"
     />
   </div>
   <div class="row col-md-6 align-content-start gap-2">
     <div>
-      <h1 class="h1"><%= superPlace.title %> <span class="h6 text-muted"><%= superPlace.location %></span></h1>
-      <p class="card-text"><small class="text-muted">Uploaded 3 mins ago</small></p>
-      <h3 class="h3 text-primary"><%= Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(superPlace.price) %></h3>
-      <p class=""><%= superPlace.description %></p>
-      </div>
-      <div class="d-flex gap-2 justify-content-start align-content-start">
-      <form
-        action="/superplaces/<%= superPlace._id %>?_method=DELETE"
-        method="POST"
-        class="p-0 col w-100"
-        style="position: static"
-      >
-        <button class="btn btn-dark shadow btn-sm w-auto col">Delete</button>
-      </form>
-      <a
-        class="btn btn-dark shadow btn-sm w-auto col"
-        href="/superplaces/<%= superPlace._id %>/edit"
-        >Edit</a
-      >
+      <h1 class="h1">
+        <%= superplace.title %>
+        <span class="h6 text-muted"><%= superplace.location %></span>
+      </h1>
+      <p class="card-text">
+        <small class="text-muted">Uploaded 3 mins ago</small>
+      </p>
+      <h3 class="h3 text-primary">
+        <%= Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
+        }).format(superplace.price) %>
+      </h3>
+      <p class=""><%= superplace.description %></p>
     </div>
+    <div class="d-flex gap-2  w-auto ">
+      <form
+        action="/superplaces/<%= superplace._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-link  text-danger text-decoration-none">Delete</button>
+      </form>
+        <a
+        class="btn btn-dark shadow btn-sm w-auto col d-flex align-items-center"
+        href="/superplaces/<%= superplace._id %>/edit"
+        >
+        Edit
+      </a>
+    </div>
+    <form action="">
+      <textarea name="body" id="review-id">Enter your comment here</textarea>
+    </form>
   </div>
 </div>

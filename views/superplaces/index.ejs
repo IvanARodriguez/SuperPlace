@@ -1,17 +1,36 @@
 <% layout('/layout/boilerplate') %>
 <div class="row align-center justify-center">
   <h1 class="col">All Super Places</h1>
-  <a href="/superplaces/new" class="btn btn-primary " style="width: fit-content; height: fit-content;">Create Super Place</a>
-
+  <a
+    href="/superplaces/new"
+    class="btn btn-primary"
+    style="width: fit-content; height: fit-content"
+    >Create Super Place</a
+  >
 </div>
-<div class="row  justify-content-start align-center mb-5 p-2">
-  <% superplaces.forEach((sp, i) => { %>
-    <div class="card col-md-12 col-lg-2 m-1 w-md-25" style="padding: 0;">
-      <img class="card-img-top" style="width: 100%;" src="<%= sp.imageUri %>" alt="<%= sp.title %> image">
+<% if (superplaces.length > 0) { %>
+  <div class="row justify-content-start align-center mb-5 p-2">
+    <% superplaces.forEach((sp, i) => { %>
+    <div class="card col-md-12 col-lg-2 m-1 w-md-25" style="padding: 0">
+      <img
+        class="card-img-top"
+        style="width: 100%"
+        loading="lazy"
+        src="<%= sp.imageUri %>"
+        alt="<%= sp.title %> image"
+      />
       <div class="card-body">
         <h5 class="card-title"><%= sp.title %></h5>
         <p class="card-text"><%= sp.description%></p>
         <a href="superplaces/<%= sp._id %>" class="btn btn-primary">VISIT</a>
       </div>
     </div>
-  <% }) %>
+    <% }) %>
+  </div>
+<% } else {  %>
+  <div class="d-flex flex-column justify-content-center align-center py-4 px-1 text-center">
+    <img class="empty-img" src="empty.svg"  alt="Man looking through telescope">
+    <h2>There's no places to display</h2>
+    <p>Please create one or come back later, thank you</p>
+  </div>
+  <% }  %>

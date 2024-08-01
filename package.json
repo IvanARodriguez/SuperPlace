@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon  app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm sass && nodemon app.js",
+    "sass": "sass ./styles/sass/main.scss:./styles/main.css"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "sass": "^1.77.8"
   }
 }

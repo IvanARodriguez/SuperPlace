@@ -1,5 +1,5 @@
-
-
+// Colors
+$primary-color: #12b886;
 #logo{
   display: flex;
   text-decoration: none;
@@ -20,11 +20,11 @@
 
 .main-color{
   margin: 0;
-  color: #12b886;
+  color: $primary-color;
 }
 
 .main-bg-color {
-  background-color:#12b886 ;
+  background-color:$primary-color;
 }
 
 .bug-image{

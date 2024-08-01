@@ -8,6 +8,7 @@ const SuperPlaceSchema = new Schema({
   description: String,
   location: String,
   imageUri: String,
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
 })
 
 export default mongoose.model('SuperPlace', SuperPlaceSchema)
