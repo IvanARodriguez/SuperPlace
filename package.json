@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm sass && nodemon app.js",
-    "sass": "sass ./styles/sass/main.scss:./styles/main.css"
+    "dev": "concurrently \"pnpm sass\" \" nodemon app.js \"",
+    "sass": "sass --watch ./styles/sass/main.sass:./styles/main.css"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "nodemon": "^3.1.0",
     "sass": "^1.77.8"
   }

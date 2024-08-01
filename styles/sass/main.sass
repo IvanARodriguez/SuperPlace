@@ -1,0 +1,45 @@
+@use 'mixin'
+@use 'vars'
+
+body
+  font-size: 14px
+  @include mixin.lg
+    font-size: 16px
+  @include mixin.xl
+    font-size: 18px
+
+#logo
+  display: flex
+  text-decoration: none
+  color: inherit
+  justify-content: center
+  align-items: center
+  gap: .2rem
+
+.logo-font
+  font-size: 2rem
+  display: flex
+  height: inherit
+  color: inherit
+  position: relative
+
+
+
+.main-color
+  margin: 0
+  color:  vars.$primary-color
+
+
+.main-bg-color 
+  background-color: vars.$primary-color
+
+
+.bug-image
+  max-width: 500px
+  width: 100%
+  margin: 0 auto
+
+
+.empty-img
+  width: 100%
+  max-height: 300px
